@@ -17,10 +17,28 @@ const routes = [{
             import ('../views/dashboard/saas.vue'),
     },
     {
-        path: '/admin/komite',
-        meta: { title: 'KOMITE', authRequired: true, },
+        path: '/sa/user',
+        meta: { title: 'role', authRequired: true, },
         component: () =>
-            import ('../views/dashboard/komite.vue'),
+            import ('../views/users/user.vue'),
+    },
+    {
+        path: '/sa/role',
+        meta: { title: 'role', authRequired: true, },
+        component: () =>
+            import ('../views/role/role.vue'),
+    },
+    {
+        path: '/admin/hasilDapo',
+        meta: { title: 'Saas', authRequired: true, },
+        component: () =>
+            import ('../views/dashboard/dapodik/hasilDapo.vue'),
+    },
+    {
+        path: '/admin/komite',
+        meta: { title: 'komite', authRequired: true, },
+        component: () =>
+            import ('../views/dashboard/komite/komite.vue'),
     },
     {
         path: '/dashboard/crypto',
@@ -702,6 +720,11 @@ const routes = [{
         component: () =>
             import ('../views/maps/amcharts/index.vue')
     },
+    {
+        path: "/:pathMatch(.*)*",
+        component: () =>
+            import ('../views/utility/404.vue')
+    }
 ]
 
 const router = createRouter({

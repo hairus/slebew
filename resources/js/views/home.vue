@@ -18,11 +18,13 @@ export default {
       title: "Dashboard",
         loading : false,
       showModal: false,
+        kelass:[],
+        siswas:[],
+        gurus:[],
       statData: [
         {
-          icon: "bx bx-copy-alt",
-          title: "Orders",
-          value: "1,235"
+          title: "Kelas",
+          value: "30"
         },
         {
           icon: "bx bx-archive-in",
@@ -133,13 +135,22 @@ export default {
               .then(res => {
                   alert('sukses');
               })
+        },
+        async getKelas(){
+          await axios.get('/api/admin/dapo/getDatas')
+              .then(res => {
+                  this.kelass = res.data.kelas;
+                  this.siswas = res.data.siswas;
+                  this.gurus = res.data.gurus;
+              })
         }
     },
   mounted() {
     setTimeout(() => {
       this.showModal = false;
     }, 1500);
-    this.getDataToken()
+    this.getDataToken();
+    this.getKelas();
   },
 };
 </script>
@@ -161,9 +172,18 @@ export default {
       </BCol>
       <BCol xl="12">
         <BRow>
-          <BCol md="4" v-for="stat of statData" :key="stat.icon" >
-            <Stat :icon="stat.icon" :title="stat.title" :value="stat.value" />
-          </BCol>
+            <BCol md="3">
+                <Stat icon="asdf" title="Kelas" :value="kelass.length" />
+            </BCol>
+            <BCol md="3">
+                <Stat icon="asdf" title="Siswa" :value="siswas.length" />
+            </BCol>
+            <BCol md="3">
+                <Stat icon="asdf" title="Guru" :value="gurus.length" />
+            </BCol>
+            <BCol md="3">
+                <Stat icon="asdf" title="Guru" :value="gurus.length" />
+            </BCol>
         </BRow>
           <button class="btn btn-success my-3" v-if="tokens.ip" @click="singkron"><i class="fa fa-radiation"></i> Singkron Dapodik</button>
           <div class="col-12">

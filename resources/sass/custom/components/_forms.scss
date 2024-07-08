@@ -183,7 +183,7 @@ $value in $theme-colors {
 // form select
 
 .multiselect {
-  width: 151% !important;
+  width: 100%;
   background-color: var(--#{$prefix}secondary-bg) !important;
   border: var(--#{$prefix}border-width) solid var(--#{$prefix}border-color-translucent) !important;
 }

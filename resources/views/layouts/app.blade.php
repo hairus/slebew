@@ -12,6 +12,9 @@
         name="description" />
     <!-- vite css and js  -->
     <link rel="stylesheet" href="{{ Vite::asset('resources/sass/app.scss') }}" id="layout-css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
     <script type="module" src="{{ Vite::asset('resources/js/app.js') }}"></script>
 
     @yield('css')
@@ -26,4 +29,5 @@
     @yield('js')
 
 </body>
+
 </html>

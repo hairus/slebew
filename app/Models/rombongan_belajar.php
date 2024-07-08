@@ -13,7 +13,7 @@ class rombongan_belajar extends Model
 
     public function anggotas()
     {
-        return $this->hasMany(anggotaRombel::class, 'rb_id', 'id');
+        return $this->hasMany(anggota_rombel::class, 'rb_id', 'id');
     }
 
     public function pembelajarans()

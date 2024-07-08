@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\siswaResource;
 use App\Models\anggota_rombel;
+use App\Models\peserta_didik;
+use App\Models\ptks;
 use App\Models\rombongan_belajar;
 use App\Models\token;
 use Illuminate\Http\Request;
@@ -42,15 +45,10 @@ class dapodikController extends Controller
     {
         $token = token::first();
 
-//        $res = Http::withToken($token->token)->get('http://' . $token->ip . '/WebService/getRombonganBelajar?npsn=' . $token->npsn);
-        $res = Http::withToken($token->token)->get('http://192.168.101.169:5774/WebService/getRombonganBelajar?npsn=20520022');
+        $res = Http::withToken($token->token)->get('http://'.$token->ip.'/WebService/getRombonganBelajar?npsn='.$token->npsn);
 
         // data pegambilan data rombel siswa //
-        $entityBody = file_get_contents('php://temp');
-
-        dd($res->getBody());
-
-        $data = json_decode($res->body());
+        $data = json_decode($res->getBody()->getContents());
         for ($x = 0; $x < $data->results; $x++) {
             $jum_anggota_rombel = count($data->rows[$x]->anggota_rombel);
             $jum_pembelajaran = count($data->rows[$x]->pembelajaran);
@@ -114,7 +112,8 @@ class dapodikController extends Controller
         //========== get peserta didik ===============//
 
         $pd = Http::withToken($token->token)->get('http://' . $token->ip . '/WebService/getPesertaDidik?npsn=' . $token->npsn . '');
-        $data = json_decode($pd->getBody());
+//        dd($pd);
+        $data = json_decode($pd->getbody()->getContents());
         for ($a = 0; $a < $data->results; $a++) {
             if (peserta_didik::where('peserta_didik_id', $data->rows[$a]->peserta_didik_id)->exists()) {
             } else {
@@ -135,9 +134,9 @@ class dapodikController extends Controller
         $ptk = Http::withToken($token->token)->get('http://' . $token->ip . '/WebService/getGtk?npsn=' . $token->npsn . '');
         $data = json_decode($ptk->getBody());
         for ($a = 0; $a < $data->results; $a++) {
-            if (ptk::where('ptk_id', $data->rows[$a]->ptk_id)->exists()) {
+            if (ptks::where('ptk_id', $data->rows[$a]->ptk_id)->exists()) {
             } else {
-                $pd = ptk::create([
+                $pd = ptks::create([
                     "ptk_id" => $data->rows[$a]->ptk_id,
                     "nama" => $data->rows[$a]->nama,
                     "ptk_terdaftar_id" => $data->rows[$a]->ptk_terdaftar_id,
@@ -145,6 +144,8 @@ class dapodikController extends Controller
                 ]);
             }
         }
+
+        return "success burix";
         // ========== end get GTK =================//
     }
 
@@ -161,5 +162,44 @@ class dapodikController extends Controller
         $del->delete();
 
         return "suksess";
+    }
+
+    public function getDatas()
+    {
+        $kelas = rombongan_belajar::with('anggotas')->where('jenis_rombel', 12)->orderBy('nama')->get();
+        $siswas = peserta_didik::all();
+        $gurus = ptks::where('jenis_ptk_id_str', 'Guru Mapel')->get();
+
+        return response()->json([
+           "kelas" => $kelas,
+           "siswas" => $siswas,
+           "gurus" => $gurus
+        ]);
+    }
+
+    public function getSiswa(Request $request)
+    {
+        $siswas = peserta_didik::where('rombongan_belajar_id', $request->kelas_id)->orderBy('nama')->get();
+
+        return $siswas;
+    }
+
+    public function getSiswaId($id)
+    {
+        $siswa = peserta_didik::whereDoesntHave('komite', function($q){
+            $q->where('bulan', date('m'));
+        })->where('rombongan_belajar_id', $id)->orderBy('nama')->get();
+
+        return siswaResource::make($siswa);
+    }
+
+    public function getSiswaTrx(Request $request)
+    {
+        $tanggal = explode('-', $request->tanggal);
+
+        $rombel = peserta_didik::whereDoesntHave('komite', function($q) use ($tanggal){
+            $q->where('bulan', $tanggal[1]);
+        })->where('rombongan_belajar_id', $request->kelas)->orderBy('nama', 'ASC')->get();
+        return $rombel;
     }
 }

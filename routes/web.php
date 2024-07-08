@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 
 // Auth::routes();
-Route::get('/test', [\App\Http\Controllers\dapodikController::class, 'getdata']);
 Route::get('/{any?}', [HomeController::class, 'show'])->where('any', '^(?!api\/)[\/\w\.-]*');
+
+// example cetak
+// Route::get('/test/cetak', [HomeController::class, 'cetak']);
 

@@ -1,4 +1,26 @@
-export const menuItems = [
+export const menuItems = [{
+        id: 1,
+        label: "Super Admin",
+        isTitle: true
+    },
+    {
+        id: 190,
+        label: "Setting",
+        icon: "bx-store",
+        subItems: [{
+                id: 1,
+                label: "User Role",
+                link: "/sa/user",
+                parentId: 190
+            },
+            {
+                id: 2,
+                label: "Role",
+                link: "/sa/role",
+                parentId: 190
+            }
+        ]
+    },
     {
         id: 1,
         label: "Admin",
@@ -8,11 +30,16 @@ export const menuItems = [
         id: 2,
         label: "menuitems.dashboards.text",
         icon: "bx-home-circle",
-        subItems: [
-            {
+        subItems: [{
                 id: 3,
                 label: "Sync Dapopdik",
                 link: "/",
+                parentId: 2
+            },
+            {
+                id: 151,
+                label: "Result Dapo",
+                link: "/admin/hasilDapo",
                 parentId: 2
             },
             {
@@ -82,8 +109,7 @@ export const menuItems = [
         id: 10,
         label: "menuitems.ecommerce.text",
         icon: "bx-store",
-        subItems: [
-            {
+        subItems: [{
                 id: 11,
                 label: "menuitems.ecommerce.list.products",
                 link: "/ecommerce/products",
@@ -137,8 +163,7 @@ export const menuItems = [
         id: 19,
         label: "menuitems.crypto.text",
         icon: "bx-bitcoin",
-        subItems: [
-            {
+        subItems: [{
                 id: 20,
                 label: "menuitems.crypto.list.wallet",
                 link: "/crypto/wallet",
@@ -186,8 +211,7 @@ export const menuItems = [
         id: 27,
         label: "menuitems.email.text",
         icon: "bx-envelope",
-        subItems: [
-            {
+        subItems: [{
                 id: 28,
                 label: "menuitems.email.list.inbox",
                 link: "/email/inbox",
@@ -203,8 +227,7 @@ export const menuItems = [
                 id: 32,
                 label: "menuitems.email.list.template.text",
                 parentId: 29,
-                subItems: [
-                    {
+                subItems: [{
                         id: 33,
                         label: 'menuitems.email.list.template.list.basic',
                         link: '/email/templates/basic',
@@ -228,8 +251,7 @@ export const menuItems = [
         id: 30,
         label: "menuitems.invoices.text",
         icon: "bx-receipt",
-        subItems: [
-            {
+        subItems: [{
                 id: 31,
                 label: "menuitems.invoices.list.invoicelist",
                 link: "/invoices/list",
@@ -247,8 +269,7 @@ export const menuItems = [
         id: 33,
         label: "menuitems.projects.text",
         icon: "bx-briefcase-alt-2",
-        subItems: [
-            {
+        subItems: [{
                 id: 34,
                 label: "menuitems.projects.list.grid",
                 link: "/projects/grid",
@@ -278,8 +299,7 @@ export const menuItems = [
         id: 38,
         label: "menuitems.tasks.text",
         icon: "bx-task",
-        subItems: [
-            {
+        subItems: [{
                 id: 39,
                 label: "menuitems.tasks.list.tasklist",
                 link: "/tasks/list",
@@ -303,8 +323,7 @@ export const menuItems = [
         id: 42,
         label: "menuitems.contacts.text",
         icon: "bxs-user-detail",
-        subItems: [
-            {
+        subItems: [{
                 id: 43,
                 label: "menuitems.contacts.list.usergrid",
                 link: "/contacts/grid",
@@ -328,8 +347,7 @@ export const menuItems = [
         id: 50,
         label: "menuitems.blog.text",
         icon: "bx-detail",
-        subItems: [
-            {
+        subItems: [{
                 id: 51,
                 label: 'menuitems.blog.list.bloglist',
                 link: '/blog/list',
@@ -357,8 +375,7 @@ export const menuItems = [
             variant: "success",
             text: "menuitems.jobs.badge"
         },
-        subItems: [
-            {
+        subItems: [{
                 id: 112,
                 label: 'menuitems.jobs.list.job-list',
                 link: '/jobs/list',
@@ -392,8 +409,7 @@ export const menuItems = [
                 id: 116,
                 label: 'menuitems.jobs.list.candidate.text',
                 parentId: 111,
-                subItems: [
-                    {
+                subItems: [{
                         id: 117,
                         label: 'menuitems.jobs.list.candidate.list',
                         link: '/jobs/candidate/list',
@@ -418,8 +434,7 @@ export const menuItems = [
         id: 47,
         label: "menuitems.authentication.text",
         icon: "bx-user-circle",
-        subItems: [
-            {
+        subItems: [{
                 id: 56,
                 label: "menuitems.authentication.list.login",
                 link: "/auth/login-1",
@@ -509,8 +524,7 @@ export const menuItems = [
         id: 52,
         label: "menuitems.utility.text",
         icon: "bx-file",
-        subItems: [
-            {
+        subItems: [{
                 id: 53,
                 label: "menuitems.utility.list.starter",
                 link: "/pages/starter",
@@ -569,8 +583,7 @@ export const menuItems = [
         id: 61,
         label: "menuitems.uielements.text",
         icon: "bx-tone",
-        subItems: [
-            {
+        subItems: [{
                 id: 62,
                 label: "menuitems.uielements.list.alerts",
                 link: "/ui/alerts",
@@ -710,8 +723,7 @@ export const menuItems = [
             variant: "danger",
             text: "menuitems.forms.badge"
         },
-        subItems: [
-            {
+        subItems: [{
                 id: 80,
                 label: "menuitems.forms.list.elements",
                 link: "/form/elements",
@@ -765,21 +777,18 @@ export const menuItems = [
         id: 88,
         icon: "bx-list-ul",
         label: "menuitems.tables.text",
-        subItems: [
-            {
-                id: 89,
-                label: "menuitems.tables.list.basic",
-                link: "/tables/basic",
-                parentId: 88
-            },
-        ]
+        subItems: [{
+            id: 89,
+            label: "menuitems.tables.list.basic",
+            link: "/tables/basic",
+            parentId: 88
+        }, ]
     },
     {
         id: 91,
         icon: "bxs-bar-chart-alt-2",
         label: "menuitems.charts.text",
-        subItems: [
-            {
+        subItems: [{
                 id: 92,
                 label: "menuitems.charts.list.apex",
                 link: "/charts/apex",
@@ -797,8 +806,7 @@ export const menuItems = [
         id: 96,
         label: "menuitems.icons.text",
         icon: "bx-aperture",
-        subItems: [
-            {
+        subItems: [{
                 id: 97,
                 label: "menuitems.icons.list.boxicons",
                 link: "/icons/boxicons",
@@ -828,8 +836,7 @@ export const menuItems = [
         id: 101,
         label: "menuitems.maps.text",
         icon: "bx-map",
-        subItems: [
-            {
+        subItems: [{
                 id: 102,
                 label: "menuitems.maps.list.googlemap",
                 link: "/maps/google",
@@ -853,8 +860,7 @@ export const menuItems = [
         id: 104,
         label: "menuitems.multilevel.text",
         icon: "bx-share-alt",
-        subItems: [
-            {
+        subItems: [{
                 id: 105,
                 label: "menuitems.multilevel.list.level1.1",
                 link: "#",
@@ -864,8 +870,7 @@ export const menuItems = [
                 id: 106,
                 label: "menuitems.multilevel.list.level1.2",
                 parentId: 104,
-                subItems: [
-                    {
+                subItems: [{
                         id: 107,
                         label: "menuitems.multilevel.list.level1.level2.1",
                         link: "#",
