@@ -38,7 +38,7 @@ class APIController extends Controller
         return response()->json($response, 200);
     }
 
-    // custom login 
+    // custom login
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -52,7 +52,8 @@ class APIController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            $user = User::where('email', $request->email)->first();
+            $request->session()->regenerate();
+            $user = User::with('roles')->where('email', $request->email)->first();
             return $this->sendResponse($user, "success");
         }
         return $this->sendResponse(400, "Credentials not match with our records");

@@ -29,7 +29,7 @@
 								<label>Pilih kelas</label>
 								<select
 									class="form-control"
-									v-model="kelas_id">
+									v-model="kelas_id" @change="aksi">
 									<option
 										v-for="kls in kelass"
 										:key="kls.id"
@@ -98,6 +98,7 @@
 				return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 			},
 			async getSiswas() {
+                if(this.picked === "") return;
 				await axios
 					.post('/api/admin/dapo/getSiswaTrx', {
 						tanggal: this.picked,
@@ -107,17 +108,15 @@
 						this.siswas = res.data;
 					});
 			},
+            aksi(){
+                this.picked = "";
+                this.siswas = [];
+            },
 			async getKelas() {
 				await axios.get('/api/admin/dapo/getDatas').then((res) => {
 					this.kelass = res.data.kelas;
 				});
 			},
-			// async getSiswas(){
-			//     await axios.get('/api/admin/dapo/getSiswa/'+this.kelas_id)
-			//         .then(res => {
-			//             this.siswas = res.data.data
-			//         })
-			// },
 			async simpan() {
 				await axios
 					.post('/api/admin/komites', {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\komite;
 use App\Models\trx_komite;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TrxKomiteController extends Controller
 {
@@ -45,6 +45,7 @@ class TrxKomiteController extends Controller
                 "kelas_id" => $request->kelas_id,
                 "kelas" => $request->siswa_id[$x]['nama_rombel'],
                 "nominal" => $request->nominal,
+                "nomor" => 'KW-' . strtoupper(Str::random(8)),
                 "tgl" => $tanggal,
                 "bulan" => $bulan,
                 "tahun" => $tahun,
@@ -65,7 +66,7 @@ class TrxKomiteController extends Controller
                 'tgl' => $tgl[2],
                 "bulan" => $tgl[1],
                 "tahun" => $tgl[0]
-            ])->get();
+            ])->orderBy('kelas', 'ASC')->orderBy('nama', 'ASC')->get();
 
             return $trx;
         } else if ($request->bulan) {
@@ -125,12 +126,14 @@ class TrxKomiteController extends Controller
         }
     }
 
-    public function cetak()
+    public function cetak($id)
     {
-        $data = ['gg'];
+        $siswa = trx_komite::find($id);
+
+        $data = ['nama' => $siswa->nama, 'tglBayar' => $siswa->created_at, 'kelas' => $siswa->kelas, 'nominal' => $siswa->nominal, 'nomor' => $siswa->nomor];
+
         $pdf = Pdf::loadView('komite.invoice', $data);
 
-        return $pdf->download('invoice.pdf');
-        // return view('komite.invoice');
+        return $pdf->download('example.pdf');
     }
 }

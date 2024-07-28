@@ -68,4 +68,12 @@ class UserController extends Controller
 
         return "suksess";
     }
+
+    public function userSaya(Request $request)
+    {
+        $data = json_decode($request->user_id);
+        $user = User::find($data->user_id);
+
+        return response()->json($user, 200);
+    }
 }

@@ -46,7 +46,8 @@
 							</div>
 							<button
 								type="button"
-								class="btn btn-info mt-3" @click="getData">
+								class="btn btn-primary btn-sm mt-3"
+								@click="getData">
 								Pilih
 							</button>
 						</form>
@@ -58,6 +59,7 @@
 									<th>Kelas</th>
 									<th>Nominal</th>
 									<th>Pembayaran</th>
+									<th>Action</th>
 									<th>Create</th>
 								</thead>
 								<tbody>
@@ -69,22 +71,29 @@
 										<td>{{ komite.peserta_didiks.nama_rombel }}</td>
 										<td>{{ formatPrice(komite.nominal) }}</td>
 										<td>{{ komite.tgl }}-{{ komite.bulan }}-{{ komite.tahun }}</td>
+										<td>
+											<button
+												class="btn rounded-pill btn-outline-primary"
+												@click="download(komite.id)">
+												<span class="fa fa-print"></span>
+											</button>
+										</td>
 										<td>{{ komite.created_at }}</td>
 									</tr>
 								</tbody>
 							</table>
-                            <hr>
+							<hr />
 						</div>
 					</BCardBody>
 				</BCard>
 			</BCol>
 		</BRow>
-        <report />
+		<report />
 	</div>
 </template>
 
 <script>
-    import report from './report.vue';
+	import report from './report.vue';
 	import flatPickr from 'vue-flatpickr-component';
 	import monthSelectPlugin from 'flatpickr/dist/plugins/monthSelect';
 	import 'flatpickr/dist/flatpickr.css';
@@ -93,8 +102,8 @@
 		data() {
 			return {
 				komites: [],
-                totalBulan: null,
-                totalTahun: null,
+				totalBulan: null,
+				totalTahun: null,
 				opsi: '',
 				picked: '',
 				picked1: '',
@@ -125,7 +134,7 @@
 			};
 		},
 		methods: {
-            formatPrice(value) {
+			formatPrice(value) {
 				let val = (value / 1).toFixed(2).replace('.', ',');
 				return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 			},
@@ -148,55 +157,77 @@
 					this.showTahunan = false;
 				}
 			},
+			cetak() {},
+			download(id) {
+				axios
+					.get('/api/admin/komites/cetak/'+id, {
+						responseType: 'blob',
+					})
+					.then((response) => {
+						const url = window.URL.createObjectURL(new Blob([response.data]));
+						const link = document.createElement('a');
+						link.href = url;
+						link.setAttribute('download', 'example.pdf'); // File name
+						document.body.appendChild(link);
+						link.click();
+						link.remove();
+					})
+					.catch((error) => {
+						console.error('Error downloading PDF:', error);
+					});
+			},
 			async getKomites() {
 				await axios.get('/api/admin/komites').then((res) => {
 					this.komites = res.data.komites;
-                    this.totalBulan = res.data.sumBulan;
-                    this.totalTahun = res.data.sumTahun;
-
+					this.totalBulan = res.data.sumBulan;
+					this.totalTahun = res.data.sumTahun;
 				});
 			},
-            async getHarian(){
-                await axios.put('/api/admin/komites/show', {
-                    "tanggal" : this.picked
-                })
-                .then(res => {
-                    this.komites = res.data
-                })
-            },
-            async getBulanan(){
-                await axios.put('/api/admin/komites/show', {
-                    "bulan" : this.picked1
-                })
-                .then(res => {
-                    this.komites = res.data
-                })
-            },
-            async getTahunan(){
-                await axios.put('/api/admin/komites/show', {
-                    "tahun" : this.picked2
-                })
-                .then(res => {
-                    this.komites = res.data
-                })
-            },
-            async getData(){
-                if(this.opsi === "1"){
-                    this.getHarian()
-                }else if(this.opsi === "2"){
-                    this.getBulanan();
-                }else if(this.opsi === '3'){
-                    this.getTahunan()
-                }else{
-                    alert('maaf item belum terpilih')
-                }
-            }
+			async getHarian() {
+				await axios
+					.put('/api/admin/komites/show', {
+						tanggal: this.picked,
+					})
+					.then((res) => {
+						this.komites = res.data;
+					});
+			},
+			async getBulanan() {
+				await axios
+					.put('/api/admin/komites/show', {
+						bulan: this.picked1,
+					})
+					.then((res) => {
+						this.komites = res.data;
+					});
+			},
+			async getTahunan() {
+				await axios
+					.put('/api/admin/komites/show', {
+						tahun: this.picked2,
+					})
+					.then((res) => {
+						this.komites = res.data;
+					});
+			},
+			async getData() {
+				if (this.opsi === '1') {
+					this.getHarian();
+				} else if (this.opsi === '2') {
+					this.getBulanan();
+				} else if (this.opsi === '3') {
+					this.getTahunan();
+				} else {
+					alert('maaf item belum terpilih');
+				}
+			},
 		},
 		components: {
-			flatPickr, report
+			flatPickr,
+			report,
 		},
-        mounted(){
-            this.getKomites()
-        }
+		mounted() {
+			this.getKomites();
+		},
 	};
 </script>

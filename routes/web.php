@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// example cetak
+// Route::get('/test/cetak/{id}', [HomeController::class, 'cetak']);
 
 // Auth::routes();
 Route::get('/{any?}', [HomeController::class, 'show'])->where('any', '^(?!api\/)[\/\w\.-]*');
 
-// example cetak
-// Route::get('/test/cetak', [HomeController::class, 'cetak']);
 

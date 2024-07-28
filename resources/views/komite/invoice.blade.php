@@ -1,110 +1,104 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-    <title>Faktur Pembayaran</title>
+    <meta charset="UTF-8">
+    <title>Kwitansi</title>
     <style>
-        #tabel {
-            font-size: 15px;
-            border-collapse: collapse;
+        body {
+            font-family: Arial, sans-serif;
+            width: 80mm; /* Typical width for POS receipt printers */
         }
-
-        #tabel td {
-            padding-left: 5px;
-            border: 1px solid black;
+        .container {
+            padding: 20px;
+        }
+        .header, .footer {
+            text-align: center;
+        }
+        .header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details th, .details td {
+            text-align: left;
+            padding: 5px;
+        }
+        .total {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
         }
     </style>
 </head>
-
-<body style='font-family:tahoma; font-size:8pt;'>
-    <center>
-        <table style='width:350px; font-size:16pt; font-family:calibri; border-collapse: collapse;' border = '0'>
-            <td width='70%' align='CENTER' vertical-align:top'><span style='color:black;'>
-                    <b>SMAN 1 KRAKSAN</b></br>JL XXXXXXXXXXX XXXXXXX</span></br>
-
-
-                <span style='font-size:12pt'>No. : xxxxx, 11 Juni 2020 (user:xxxxx), 11:57:50</span></br>
-            </td>
-        </table>
-        <style>
-            hr {
-                display: block;
-                margin-top: 0.5em;
-                margin-bottom: 0.5em;
-                margin-left: auto;
-                margin-right: auto;
-                border-style: inset;
-                border-width: 1px;
-            }
-        </style>
-        <table cellspacing='0' cellpadding='0'
-            style='width:350px; font-size:12pt; font-family:calibri;  border-collapse: collapse;' border='0'>
-            <tr align='center'>
-                <td width='30%'>HAIRUS SABILAH</td>
-                <td width='10%'>X1</td>
-                <td width='50%'>JANUARI 2024</td>
-                <td width='10%'>2500000</td>
-                {{-- <td width='13%'>Total</td> --}}
-            <tr>
-                <td colspan='5'>
-                    <hr>
-                </td>
-            </tr>
-            </tr>
-            {{-- <tr>
-                <td style='vertical-align:top'>3 WAY STOPCOCK</td>
-                <td style='vertical-align:top; text-align:right; padding-right:10px'>7.440</td>
-                <td style='vertical-align:top; text-align:right; padding-right:10px'>100</td>
-                <td style='vertical-align:top; text-align:right; padding-right:10px'>0,00%</td>
-                <td style='text-align:right; vertical-align:top'>744.000</td>
-            </tr>
-            <tr>
-                <td colspan='5'>
-                    <hr>
-                </td>
-            </tr>
-            <tr>
-                <td colspan = '4'>
-                    <div style='text-align:right'>Biaya Adm : </div>
-                </td>
-                <td style='text-align:right; font-size:16pt;'>Rp3.500,00</td>
-            </tr>
-            <tr>
-                <td colspan = '4'>
-                    <div style='text-align:right; color:black'>Total : </div>
-                </td>
-                <td style='text-align:right; font-size:16pt; color:black'>747.500</td>
-            </tr>
-            <tr>
-                <td colspan = '4'>
-                    <div style='text-align:right; color:black'>Cash : </div>
-                </td>
-                <td style='text-align:right; font-size:16pt; color:black'>1.000.000</td>
-            </tr>
-            <tr>
-                <td colspan = '4'>
-                    <div style='text-align:right; color:black'>Change : </div>
-                </td>
-                <td style='text-align:right; font-size:16pt; color:black'>252.500</td>
-            </tr>
-            <tr>
-                <td colspan = '4'>
-                    <div style='text-align:right; color:black'>DP : </div>
-                </td>
-                <td style='text-align:right; font-size:16pt; color:black'>0</td>
-            </tr>
-            <tr>
-                <td colspan = '4'>
-                    <div style='text-align:right; color:black'>Sisa : </div>
-                </td>
-                <td style='text-align:right; font-size:16pt; color:black'>0</td>
-            </tr> --}}
-        </table>
-        <table style='width:350; font-size:12pt;' cellspacing='2'>
-            <tr></br>
-                <td align='center'>****** TERIMAKASIH ******</br></td>
-            </tr>
-        </table>
-    </center>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>logo</div>
+            <div>Nama Perusahaan</div>
+            <div>Alamat Perusahaan</div>
+            <div>Telepon: (123) 456-7890</div>
+        </div>
+        <div class="details">
+            <table width="100%">
+                <tr>
+                    <th>Tanggal</th>
+                    <td>: {{ $tglBayar }}</td>
+                </tr>
+                <tr>
+                    <th>No. Kwitansi</th>
+                    <td>: {{ $nomor }}</td>
+                </tr>
+                <tr>
+                    <th>Kelas</th>
+                    <td>: {{ $kelas }}</td>
+                </tr>
+                <tr>
+                    <th>Nama Pelanggan</th>
+                    <td>: {{ $nama }}</td>
+                </tr>
+                <tr>
+                    <th>Nominal</th>
+                    <td>: {{ $nominal }}</td>
+                </tr>
+            </table>
+        </div>
+        {{-- <div class="items">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th>Deskripsi</th>
+                        <th>Qty</th>
+                        <th>Harga</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Item 1</td>
+                        <td>2</td>
+                        <td>Rp 50,000</td>
+                        <td>Rp 100,000</td>
+                    </tr>
+                    <tr>
+                        <td>Item 2</td>
+                        <td>1</td>
+                        <td>Rp 75,000</td>
+                        <td>Rp 75,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> --}}
+        <div class="total">
+            Total: {{$nominal}}
+        </div>
+        <div class="footer">
+            <div>Terima kasih telah berbelanja!</div>
+            <div>Harap simpan kwitansi ini sebagai bukti pembayaran.</div>
+        </div>
+    </div>
 </body>
-
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\trx_komite;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,12 +30,13 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function cetak()
+    public function cetak($id)
     {
-        $data = ['gg'];
+        $siswa = trx_komite::find($id);
+        $data = ['nama' => $siswa->nama, 'tglBayar' => $siswa->created_at, 'kelas' => $siswa->kelas];
         $pdf = Pdf::loadView('komite.invoice', $data);
 
-        // return $pdf->download('invoice.pdf');
-        return view('komite.invoice');
+        return $pdf->download('example.pdf');
+        // return view('komite.invoice');
     }
 }

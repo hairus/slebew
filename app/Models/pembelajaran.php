@@ -13,7 +13,7 @@ class pembelajaran extends Model
 
     public function gurus()
     {
-        return $this->hasOne(ptk::class, 'ptk_id', 'ptk_id');
+        return $this->hasOne(ptks::class, 'ptk_id', 'ptk_id');
     }
 
     public function rombels()

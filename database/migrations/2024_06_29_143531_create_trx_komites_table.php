@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('kelas_id');
             $table->string('kelas');
             $table->bigInteger('nominal');
+            $table->string('nomor')->unique();
             $table->string('tgl');
             $table->string('bulan');
             $table->string('tahun');

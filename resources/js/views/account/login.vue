@@ -34,6 +34,7 @@ export default {
             user_id: data.data.id,
             name: data.data.name,
             email: data.data.email,
+            roles: data.data.roles
           }
           localStorage.setItem('user', JSON.stringify(logged_user));
           this.$router.push('/');
@@ -63,8 +64,9 @@ export default {
               <BRow>
                 <BCol cols="7">
                   <div class="text-primary p-4">
-                    <h5 class="text-primary">Welcome Back ! burixxxx and nagasari</h5>
-                    <p>Sign in to continue to Skote.</p>
+                    <h5 class="text-primary">Welcome Back! </h5>
+                    <H5>SMAN 1 KRAKSAN</H5>
+                    <!-- <p>Sign in to continue to Skote.</p> -->
                   </div>
                 </BCol>
                 <BCol cols="5" class="align-self-end">

@@ -29,16 +29,28 @@ const routes = [{
             import ('../views/role/role.vue'),
     },
     {
+        path: '/admin/menu',
+        meta: { title: 'role', authRequired: true, },
+        component: () =>
+            import ('../views/setting/index.vue'),
+    },
+    {
         path: '/admin/hasilDapo',
         meta: { title: 'Saas', authRequired: true, },
         component: () =>
             import ('../views/dashboard/dapodik/hasilDapo.vue'),
     },
     {
-        path: '/admin/komite',
+        path: '/admin/spm',
         meta: { title: 'komite', authRequired: true, },
         component: () =>
             import ('../views/dashboard/komite/komite.vue'),
+    },
+    {
+        path: '/guru/ijin',
+        meta: { title: 'guru', authRequired: true, },
+        component: () =>
+            import ('../views/guru/ijin/index.vue'),
     },
     {
         path: '/dashboard/crypto',

@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ptks extends Model
+class menu extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
 
-    public function pembelajarans()
+    public function subMenus()
     {
-        return $this->hasMany(pembelajaran::class, 'ptk_id', 'ptk_id');
+        return $this->hasMany(SubItem::class, 'parentId', 'id');
     }
 }

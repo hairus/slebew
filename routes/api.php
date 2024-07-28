@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\IjinController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PtkController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TrxKomiteController;
 use App\Http\Controllers\UserController;
@@ -18,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::post('/login', [APIController::class, 'login']);
 Route::post('/register', [APIController::class, 'register']);
@@ -31,11 +34,8 @@ Route::post('/reset-password', [APIController::class, 'reset_pass']);
 
 //dapodik
 
-
-
-
 //Role
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function () {
     /** dapodik */
     Route::post('komite', [\App\Http\Controllers\komiteController::class, 'komite']);
     Route::get('getPrice', [\App\Http\Controllers\komiteController::class, 'getPrice']);
@@ -53,7 +53,23 @@ Route::group(['prefix' => 'admin'], function () {
     /** role */
     Route::resource('role', RoleController::class);
     Route::resource('user', UserController::class);
+    Route::post('userSaya', [UserController::class, 'userSaya']);
     Route::resource('komites', TrxKomiteController::class);
     Route::post('komites/income', [TrxKomiteController::class, 'income']);
+    Route::get('komites/cetak/{id}', [TrxKomiteController::class, 'cetak']);
     Route::delete('user/{user}/{role}', [UserController::class, 'destroy1']);
+    // menu
+    Route::resource('menus', MenuController::class);
+});
+
+
+
+/** guru */
+Route::group(['prefix' => 'guru'], function () {
+    Route::get('ijin', [PtkController::class, 'index']);
+    Route::get('getMapels', [PtkController::class, 'getMapels']);
+    Route::get('getGuruKelas', [PtkController::class, 'getGuruKelas']);
+    Route::post('simI', [IjinController::class, 'simI']);
+    Route::post('me', [IjinController::class, 'index']);
+    Route::delete('del/{id}', [IjinController::class, 'destroy']);
 });
