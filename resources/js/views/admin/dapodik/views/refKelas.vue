@@ -20,7 +20,7 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
-import dataTables from "../tableTest.vue"
+import dataTables from "../dataTables.vue"
 
 const datas = ref([]);
 const columns = [
