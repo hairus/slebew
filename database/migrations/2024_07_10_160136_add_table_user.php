@@ -10,10 +10,11 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    { if (!Schema::hasTable('roles')) {
         Schema::table('users', function (Blueprint $table) {
             $table->string('ptk_id')->nullable();
         });
+      }
     }
 
     /**

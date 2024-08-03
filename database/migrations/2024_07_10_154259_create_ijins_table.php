@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+      if (!Schema::hasTable('ijins')) {
         Schema::create('ijins', function (Blueprint $table) {
             $table->id();
             $table->string('ptk_id')->index();
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->text('desk');
             $table->timestamps();
         });
+      }
     }
 
     /**

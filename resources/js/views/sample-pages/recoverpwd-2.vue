@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import { required, email, helpers } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 
-import { authMethods } from "@/state/helpers";
+// import { authMethods } from "@/state/helpers";
 
 import logoDark from '../../../images/logo-dark.png';
 import logoLight from '../../../images/logo-light.png';

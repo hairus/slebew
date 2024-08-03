@@ -1,28 +1,28 @@
-<!-- @format -->
-
 <template>
     <div>
-        <BModal v-model="showModal" @hide.prevent @ok="simMenu" @cancel="showModal = !showModal"
-            @close="showModal = !showModal" id="modal-center-menu" centered title="Add Sub Menu">
+        <BModal v-model="showModal" @hide.prevent @ok="simMenu" @cancel="closeModal"
+            @close="closeModal" id="modal-center-menu" centered title="Add Menu or Title">
             <form>
                 <div class="form-group">
                     <label for="">Label</label>
                     <input type="text" class="form-control" v-model="label">
                 </div>
                 <div class="form-group">
-                    <label for="">is Title</label>
-                    <select name="" id="" class="form-control" v-model="isTitle">
-                        <option value="0">false</option>
-                        <option value="1">true</option>
+                    <label for="">Sebagai Title?</label>
+                    <select name="" id="" class="form-control" v-model="isTitle" @focus="removeIsTitlePlaceholder">
+                        <option :value="null" disabled>- Pilih Title Option -</option>
+                        <option :value="false">Tidak, jadikan parent menu</option>
+                        <option :value="true">Ya, jadikan title menu</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" v-if="!isTitle">
                     <label for="">Icon</label>
                     <input type="text" class="form-control" v-model="icon">
                 </div>
                 <div class="form-group">
                     <label for="">Role</label>
-                    <select name="" id="" class="form-control" v-model="role">
+                    <select name="" id="" class="form-control" v-model="role" @focus="removeRolePlaceholder">
+                        <option v-if="!role" disabled value="">- Pilih Role -</option>
                         <option v-for="r in roles" :key="r.id" :value="r.role">{{ r.role }}</option>
                     </select>
                 </div>
@@ -32,33 +32,70 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
+import { fetchMenuItems } from "../../components/menu";
+
 export default {
-    name: 'Modal add Menu',
+    name: 'ModalAddMenu',
     props: ['roles'],
     data() {
         return {
             showModal: false,
+            label: "",
+            isTitle: null, // Initialize isTitle with null for placeholder
+            icon: "",
+            role: "", // Initialize role with empty string for placeholder
         };
     },
+    watch: {
+        isTitle(newVal) {
+            if (newVal === true) { // If isTitle is true
+                this.icon = "bx";
+            }
+        }
+    },
     methods: {
+        closeModal () {
+            this.showModal = !this.showModal
+            this.label = "";
+            this.isTitle = null; // Reset to null for placeholder
+            this.role = ""; // Reset to empty string for placeholder
+            this.icon = "bx";
+        },
+        removeIsTitlePlaceholder() {
+            // Remove the placeholder option when the select is focused
+            if (this.isTitle === null) {
+                this.isTitle = false;
+            }
+        },
+        removeRolePlaceholder() {
+            // Remove the placeholder option when the select is focused
+            this.role = this.role || null; // Force reactivity update
+        },
         async simMenu() {
+            if (this.isTitle === null) {
+                return alert('Title Option tidak boleh kosong!')
+            } else if (this.role === null || this.role === '') {
+                return alert('Role Menu tidak boleh kosong!')
+            } else if (this.label === "") {
+                return alert('Label tidak boleh kosong!')
+            }
             await axios.post('/api/admin/menus', {
                 label: this.label,
                 isTitle: this.isTitle,
                 role: this.role,
-                icon: this.icon,
+                icon: this.isTitle ? "bx" : this.icon,
             }).then(res => {
                 this.showModal = false;
-                this.$emit('reload')
+                this.$emit('reload');
                 this.label = "";
-                this.isTitle = "";
-                this.role = "";
+                this.isTitle = null; // Reset to null for placeholder
+                this.role = ""; // Reset to empty string for placeholder
                 this.icon = "";
-
+                fetchMenuItems();
             })
         },
-    },
+    }
 };
 </script>
 

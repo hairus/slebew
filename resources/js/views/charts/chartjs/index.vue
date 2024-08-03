@@ -1,9 +1,7 @@
 <script>
 import Layout from "../../../layouts/main.vue";
 import PageHeader from "../../../components/page-header.vue";
-import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 
-import { charts } from "./data";
 
 /**
  * Chartjs-chart component
@@ -12,7 +10,6 @@ export default {
   components: {
     Layout,
     PageHeader,
-    Vue3ChartJs
   },
   data() {
     return {

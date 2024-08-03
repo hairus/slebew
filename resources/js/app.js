@@ -13,12 +13,20 @@ import helper from "./mixins/layouts.mixin";
 import { vMaska } from "maska";
 
 import i18n from './i18n'
-import { BootstrapVueNext } from 'bootstrap-vue-next';
+import {BootstrapVueNext} from 'bootstrap-vue-next'
+
+import { GDialog } from 'gitart-vue-dialog'
 
 // import 'bootstrap/dist/css/bootstrap.css'
+// Add the necessary CSS
+// import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
-import "leaflet/dist/leaflet.css";
+
 import "@vueform/multiselect/themes/default.css"
+
+
+import 'gitart-vue-dialog/dist/style.css'
+
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin

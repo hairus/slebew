@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\dapodikController;
+use App\Http\Controllers\GuruMgmpController;
 use App\Http\Controllers\IjinController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PtkController;
@@ -35,8 +37,20 @@ Route::post('/reset-password', [APIController::class, 'reset_pass']);
 //dapodik
 
 //Role
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'admin'], function () {
     /** dapodik */
+    Route::get('ptk', [dapodikController::class, 'ptk']);
+    Route::get('rombles', [dapodikController::class, 'rombels']);
+    Route::get('mapels', [dapodikController::class, 'mapels']);
+    Route::get('simpanMapels', [dapodikController::class, 'simpanMapels']);
+    Route::get('simpanGuru', [dapodikController::class, 'simpanGuru']);
+    Route::get('simKelas', [dapodikController::class, 'simKelas']);
+
+    // fungsi ini untuk singkron dari database dapodik local ke local db yang mau di gunakan
+    Route::get('singkron',[dapodikController::class, 'singkron']);
+
+
+    Route::get('getPrice', [\App\Http\Controllers\komiteController::class, 'getPrice']);
     Route::post('komite', [\App\Http\Controllers\komiteController::class, 'komite']);
     Route::get('getPrice', [\App\Http\Controllers\komiteController::class, 'getPrice']);
     Route::delete('delPrice/{id}', [\App\Http\Controllers\komiteController::class, 'delPrice']);
@@ -58,10 +72,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
     Route::post('komites/income', [TrxKomiteController::class, 'income']);
     Route::get('komites/cetak/{id}', [TrxKomiteController::class, 'cetak']);
     Route::delete('user/{user}/{role}', [UserController::class, 'destroy1']);
+
     // menu
     Route::resource('menus', MenuController::class);
-});
 
+    // management guru
+    Route::resource('mgmp', GuruMgmpController::class);
+});
 
 
 /** guru */

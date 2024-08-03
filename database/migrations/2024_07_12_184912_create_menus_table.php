@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    { if (!Schema::hasTable('menus')) {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('label');
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('role');
             $table->timestamps();
         });
+      }
     }
 
     /**

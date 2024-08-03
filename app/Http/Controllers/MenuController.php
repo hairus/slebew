@@ -19,7 +19,7 @@ class MenuController extends Controller
 
         // return $user;
 
-        $menu = menu::with('subMenus')->paginate($showing ? $showing : 5);
+        $menu = menu::with('subMenus')->paginate($showing ? $showing : 100);
 
         return response()->json($menu, 200);
     }

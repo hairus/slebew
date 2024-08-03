@@ -1,13 +1,12 @@
-<!-- @format -->
-
 <template>
     <div>
-        <BModal v-model="showModal" @hide.prevent @ok="simSub" @cancel="showModal = !showModal"
-            @close="showModal = !showModal" id="modal-center-SubMenu" centered title="Add Sub Menu">
+        <BModal v-model="showModal" @hide.prevent @ok="simSub" @cancel="closeModal"
+            @close="closeModal" id="modal-center-SubMenu" centered title="Add Sub Menu">
             <form>
                 <div class="form-group">
                     <label for="" class="mt-4">Parent</label>
-                    <select name="" id="" v-model="parent" class="form-control">
+                    <select name="" id="" v-model="parent" class="form-control" @focus="removePlaceholder">
+                        <option v-if="!parent" disabled value="">- Pilih Parent Menu -</option>
                         <option v-for="m in menus" :key="m.id" :value="m.id">
                             {{ m.label }}
                         </option>
@@ -24,28 +23,46 @@
 
 <script>
 import axios from 'axios';
+import { fetchMenuItems } from '../../components/menu';
 export default {
     name: 'ModalAddSubMenu',
     props: ['menus', 'roles'],
     data() {
         return {
             showModal: false,
+            parent: "",  // Initialize parent with empty string
+            label: "",
+            link: "",
         };
     },
     methods: {
+        closeModal () {
+            this.showModal = !this.showModal
+            this.parent = ""
+            this.label = "";
+            this.link = "";
+        },
+        removePlaceholder() {
+            // Remove the placeholder option when the select is focused
+            this.parent = this.parent || null; // Force reactivity update
+        },
         async simSub() {
+            if (this.parent === "" || this.label === "" || this.link === "") {
+                return alert('Tolong lengkapi form terlebih dahulu\n\nHarap perhatikan:\n - Parent Menu\n - Label Menu\n - Link Menu')
+            }
             await axios.post('/api/admin/menus', {
                 parent: this.parent,
                 label: this.label,
                 link: this.link,
             })
-            .then(res =>{
-                this.showModal = false
-                this.$emit('reload')
-                this.parent = "";
+            .then(res => {
+                this.showModal = false;
+                this.$emit('reload');
+                this.parent = "";  // Reset parent to default value
                 this.label = "";
                 this.link = "";
-            })
+                fetchMenuItems();
+            });
         },
     },
 };

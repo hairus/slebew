@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+      if (!Schema::hasTable('tas')) {
         Schema::create('tas', function (Blueprint $table) {
             $table->id();
             $table->string('tahun');
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->boolean('aktif')->default(false);
             $table->timestamps();
         });
+      }
     }
 
     /**

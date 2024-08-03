@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    { if (!Schema::hasTable('sub_items')) {
         Schema::create('sub_items', function (Blueprint $table) {
             $table->id();
             $table->string('label');
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('parentId')->references('id')->on('menus')->onDelete('cascade');
             $table->timestamps();
         });
+      }
     }
 
     /**

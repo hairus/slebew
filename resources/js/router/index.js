@@ -17,6 +17,12 @@ const routes = [{
             import ('../views/dashboard/saas.vue'),
     },
     {
+        path: '/admin/setMgmp',
+        meta: { title: 'Set Mgmp', authRequired: true, },
+        component: () =>
+            import ('../views/admin/setMgmp.vue'),
+    },
+    {
         path: '/sa/user',
         meta: { title: 'role', authRequired: true, },
         component: () =>

@@ -52,7 +52,7 @@ class APIController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+            // $request->session()->regenerate();
             $user = User::with('roles')->where('email', $request->email)->first();
             return $this->sendResponse($user, "success");
         }
