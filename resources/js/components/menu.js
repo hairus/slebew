@@ -25,7 +25,7 @@ export const fetchMenuItems = async() => {
   try {
     const response = await axios.get("/api/admin/menus");
     menuItems.value = formatMenuData(response.data.data);
-    console.log(menuItems.value);
+    // console.log(menuItems.value);
   } catch (error) {
     console.error("Error fetching menu items:", error);
   }

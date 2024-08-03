@@ -44,7 +44,7 @@ const routes = [{
         path: '/admin/hasilDapo',
         meta: { title: 'Saas', authRequired: true, },
         component: () =>
-            import ('../views/dashboard/dapodik/hasilDapo.vue'),
+            import ('../views/admin/dapodik/hasilDapo.vue'),
     },
     {
         path: '/admin/spm',

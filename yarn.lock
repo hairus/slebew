@@ -615,6 +615,18 @@
   resolved "https://registry.npmjs.org/@swc/helpers/-/helpers-0.2.14.tgz"
   integrity sha512-wpCQMhf5p5GhNg2MmGKXzUNwxe7zRiCsmqYsamez2beP7mKPCSiu+BjZcdN95yYSzO857kr0VfQewmGpS77nqA==
 
+"@tanstack/table-core@^8.19.3", "@tanstack/table-core@8.19.3":
+  version "8.19.3"
+  resolved "https://registry.npmjs.org/@tanstack/table-core/-/table-core-8.19.3.tgz"
+  integrity sha512-IqREj9ADoml9zCAouIG/5kCGoyIxPFdqdyoxis9FisXFi5vT+iYfEfLosq4xkU/iDbMcEuAj+X8dWRLvKYDNoQ==
+
+"@tanstack/vue-table@^8.19.3":
+  version "8.19.3"
+  resolved "https://registry.npmjs.org/@tanstack/vue-table/-/vue-table-8.19.3.tgz"
+  integrity sha512-vSgrV1HikfenUDyCWbsA8Mw6+Zr3OhTFi6D6Ictj4hrPLc/UeixjaEU6ccNw59zomyNIT+qBSP+/5iCE10oC6A==
+  dependencies:
+    "@tanstack/table-core" "8.19.3"
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.7"
   resolved "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.7.tgz"
@@ -1018,10 +1030,10 @@ attr-accept@^2.2.2:
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-2.2.2.tgz"
   integrity sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==
 
-axios@^1.5.1:
-  version "1.7.2"
-  resolved "https://registry.npmjs.org/axios/-/axios-1.7.2.tgz"
-  integrity sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==
+axios@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.npmjs.org/axios/-/axios-1.7.3.tgz"
+  integrity sha512-Ar7ND9pU99eJ9GpoGQKhKf58GpUOgnzuaB7ueNQ5BMi0p+LZ5oaEnfF999fAArcTIBwXTCHAmGcHOZJaWPq9Nw==
   dependencies:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
@@ -1545,6 +1557,11 @@ fastq@^1.6.0:
   integrity sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==
   dependencies:
     reusify "^1.0.4"
+
+figlet@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/figlet/-/figlet-1.7.0.tgz"
+  integrity sha512-gO8l3wvqo0V7wEFLXPbkX83b7MVjRrk1oRLfYlZXol8nEpb/ON9pcKLI4qpBv5YtOTfrINtqb7b40iYY2FTWFg==
 
 file-selector@^0.2.4:
   version "0.2.4"
@@ -2575,7 +2592,7 @@ vue-select@^4.0.0-beta.6:
   resolved "https://registry.npmjs.org/vue-select/-/vue-select-4.0.0-beta.6.tgz"
   integrity sha512-K+zrNBSpwMPhAxYLTCl56gaMrWZGgayoWCLqe5rWwkB8aUbAUh7u6sXjIR7v4ckp2WKC7zEEUY27g6h1MRsIHw==
 
-"vue@^2.0.0 || >=3.0.0", "vue@^2.6.14 || ^3.3.0", vue@^3, vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.11, vue@^3.0.5, vue@^3.2.0, vue@^3.2.2, vue@^3.2.25, vue@^3.2.37, vue@^3.2.47, vue@^3.2.6, vue@^3.3.4, "vue@> 3.0.0", vue@>=2.5.17, vue@>=3, vue@>=3.0.0, vue@3.4.31, vue@3.x:
+"vue@^2.0.0 || >=3.0.0", "vue@^2.6.14 || ^3.3.0", vue@^3, vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.11, vue@^3.0.5, vue@^3.2.0, vue@^3.2.2, vue@^3.2.25, vue@^3.2.37, vue@^3.2.47, vue@^3.2.6, vue@^3.3.4, "vue@> 3.0.0", vue@>=2.5.17, vue@>=3, vue@>=3.0.0, vue@>=3.2, vue@3.4.31, vue@3.x:
   version "3.4.31"
   resolved "https://registry.npmjs.org/vue/-/vue-3.4.31.tgz"
   integrity sha512-njqRrOy7W3YLAlVqSKpBebtZpDVg21FPoaq1I7f/+qqBThK9ChAIjkRWgeP6Eat+8C+iia4P3OYqpATP21BCoQ==
