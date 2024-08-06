@@ -12,7 +12,7 @@ class CpController extends Controller
    */
   public function index()
   {
-    //
+    return response()->json(['data'=>cp::all()], 200);
   }
 
   /**
@@ -47,7 +47,11 @@ class CpController extends Controller
    */
   public function show(string $id)
   {
-    //
+    $cp = cp::find($id);
+    if (!$cp) {
+      return response()->json(["error" => "CP not found"], 404);
+    }
+    return response()->json(["data" => $cp], 200);
   }
 
   /**
@@ -55,7 +59,7 @@ class CpController extends Controller
    */
   public function edit(string $id)
   {
-    //
+
   }
 
   /**
@@ -63,7 +67,21 @@ class CpController extends Controller
    */
   public function update(Request $request, string $id)
   {
-    //
+    $cp = cp::find($id);
+    if (!$cp) {
+      return response()->json(["error" => "CP not found"], 404);
+    }
+    $request->validate([
+      'mapel' => 'required',
+      'semester' => 'required',
+      'tingkat' => 'required',
+    ]);
+    $cp->update([
+      'mapel' => $request->input('mapel'),
+     'semester' => $request->input('semester'),
+      'tingkat' => $request->input('tingkat'),
+    ]);
+    return response()->json(["data" => $cp], 200);
   }
 
   /**
@@ -71,6 +89,11 @@ class CpController extends Controller
    */
   public function destroy(string $id)
   {
-    //
+    $cp = cp::find($id);
+    if (!$cp) {
+      return response()->json(["error" => "CP not found"], 404);
+    }
+    $cp->delete();
+    return response()->json([], 200);
   }
 }
