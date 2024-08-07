@@ -53,7 +53,7 @@ const routes = [
   {
     path: "/cp/menu",
     meta: { title: "cp", authRequired: true },
-    component: () => import("../views/guru/mgmp/index.vue"),
+    component: () => import("../views/guru/cp/index.vue"),
   },
   {
     path: "/dashboard/blog",

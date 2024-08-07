@@ -12,7 +12,8 @@ class CpController extends Controller
    */
   public function index()
   {
-    return response()->json(['data'=>cp::all()], 200);
+    $data = cp::all();
+    return response()->json(['data' => $data], 200);
   }
 
   /**
@@ -78,7 +79,7 @@ class CpController extends Controller
     ]);
     $cp->update([
       'mapel' => $request->input('mapel'),
-     'semester' => $request->input('semester'),
+      'semester' => $request->input('semester'),
       'tingkat' => $request->input('tingkat'),
     ]);
     return response()->json(["data" => $cp], 200);
