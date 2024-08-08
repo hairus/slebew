@@ -31,7 +31,7 @@ class CpController extends Controller
   {
     $request->validate([
       'mapel' => 'required',
-      'semester' => 'required',
+      'semester' => 'required|integer',
       'tingkat' => 'required',
     ]);
     $cp = $request->only(['mapel', 'semester', 'tingkat']);
@@ -40,7 +40,7 @@ class CpController extends Controller
       'semester' => $cp['semester'],
       'tingkat' => $cp['tingkat'],
     ]);
-    return response()->json(["data" => $cp], 200);
+    return response()->json(["data" => $cp], 201);
   }
 
   /**

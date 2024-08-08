@@ -10,4 +10,6 @@ class cp extends Model
   use HasFactory;
 
   protected $guarded = [];
+  // protected table name
+  protected $table = 'cp';
 }
