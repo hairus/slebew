@@ -47,7 +47,7 @@
           title="ADD CAPAIAN BELAJAR"
           title-class="font-18"
           @ok="handleOk"
-          @hide="preventHide"
+          @hide.prevent
           @cancel="clear"
         >
           <form @submit.prevent="createCp">

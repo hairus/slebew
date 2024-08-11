@@ -19,8 +19,6 @@
     "@anivive/vue3-form-wizard": "^1.0.1",
     "@bhplugin/vue3-datatable": "^1.1.4",
     "@chenfengyuan/vue-countdown": "^2.1.1",
-    "@ckeditor/ckeditor5-build-classic": "^40.0.0",
-    "@ckeditor/ckeditor5-vue": "^5.1.0",
     "@fullcalendar/bootstrap5": "^6.1.9",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
