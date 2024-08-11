@@ -45,9 +45,11 @@ class dapodikController extends Controller
 
   public function ptk()
   {
-    $ptks = ptks::with(['pembelajarans' => function ($q) {
-      $q->with('rombels');
-    }])->whereIn('jenis_ptk_id_str', ['Guru Mapel', 'Guru BK'])->get();
+    $ptks = ptks::with([
+      'pembelajarans' => function ($q) {
+        $q->with('rombels');
+      }
+    ])->whereIn('jenis_ptk_id_str', ['Guru Mapel', 'Guru BK'])->get();
 
     return $ptks;
   }
@@ -87,9 +89,11 @@ class dapodikController extends Controller
 
   public function simpanGuru()
   {
-    $ptks = ptks::with(['pembelajarans' => function ($q) {
-      $q->with('rombels');
-    }])->whereIn('jenis_ptk_id_str', ['Guru Mapel', 'Guru BK'])->get();
+    $ptks = ptks::with([
+      'pembelajarans' => function ($q) {
+        $q->with('rombels');
+      }
+    ])->whereIn('jenis_ptk_id_str', ['Guru Mapel', 'Guru BK'])->get();
     foreach ($ptks as $data) {
       $cek = guru::where('ptk_id', $data->ptk_id)->first();
       if ($cek) {
@@ -116,9 +120,11 @@ class dapodikController extends Controller
 
   public function rombels()
   {
-    $rombels = rombongan_belajar::with(['anggotas' => function ($q) {
-      $q->with('peserta_didiks');
-    }])->get()->sortBy('anggotas.id');
+    $rombels = rombongan_belajar::with([
+      'anggotas' => function ($q) {
+        $q->with('peserta_didiks');
+      }
+    ])->get()->sortBy('anggotas.id');
 
     return $rombels;
   }
@@ -152,9 +158,11 @@ class dapodikController extends Controller
   {
 
     // simpan guru
-    $ptks = ptks::with(['pembelajarans' => function ($q) {
-      $q->with('rombels');
-    }])->whereIn('jenis_ptk_id_str', ['Guru Mapel', 'Guru BK'])->get();
+    $ptks = ptks::with([
+      'pembelajarans' => function ($q) {
+        $q->with('rombels');
+      }
+    ])->whereIn('jenis_ptk_id_str', ['Guru Mapel', 'Guru BK'])->get();
     foreach ($ptks as $data) {
       $cek = guru::where('ptk_id', $data->ptk_id)->first();
       if ($cek) {
@@ -269,8 +277,6 @@ class dapodikController extends Controller
         if ($data->rows[$x]->pembelajaran) {
           for ($z = 0; $z < $jum_pembelajaran; $z++) {
             $sim->pembelajarans()->create([
-              "pembelajaran_id" => $data->rows[$x]->pembelajaran[$z]->pembelajaran_id,
-              "mata_pelajaran_id" => $data->rows[$x]->pembelajaran[$z]->mata_pelajaran_id,
               "pembelajaran_id" => $data->rows[$x]->pembelajaran[$z]->pembelajaran_id,
               "mata_pelajaran_id" => $data->rows[$x]->pembelajaran[$z]->mata_pelajaran_id,
               "mata_pelajaran_id_str" => $data->rows[$x]->pembelajaran[$z]->mata_pelajaran_id_str,
